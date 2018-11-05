@@ -17,7 +17,7 @@ class ambari::mpk(
       ensure => 'present',
       extract => false,
       path=> "/root/mpk_${mpk_name}_${version}.tgz",
-      create => "/var/lib/ambari-server/resources/${file_name}",
+      creates => "/var/lib/ambari-server/resources/${file_name}",
     } ~>
     exec {"install_mpk_${mpk_name}":
       command => "/etc/init.d/ambari-sever install-mpack -mpack=/root/mpk_${mpk_name}_${version}.tgz --purge",
