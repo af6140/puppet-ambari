@@ -12,13 +12,10 @@ class ambari::mpk(
     archive{"mpk_${name}_${version}":
       ensure => 'present',
       extract => false,
-      path=> "/root/${mpk_${name}_${version}.tgz",
-    }
-
-    # now install
-
+      path=> "/root/mpk_${name}_${version}.tgz",
+    } ->
     exec {"install_mpk_${name}":
-      command => '/etc/init.d/ambari-sever install-mpack -mpack="/root/${mpk_${name}_${version}.tgz" --purge',
+      command => '/etc/init.d/ambari-sever install-mpack -mpack="/root/mpk_${name}_${version}.tgz" --purge',
       path => ['/bin/', '/sbin', '/usr/bin', '/usr/sbin', '/usr/local/bin'],
       unless => ['test -f']
     }
