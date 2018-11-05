@@ -17,7 +17,7 @@ class ambari::mpk(
 
     # now install
 
-    exec {"install_mpk_${name}"
+    exec {"install_mpk_${name}":
       command => '/etc/init.d/ambari-sever install-mpack -mpack="/root/${mpk_${name}_${version}.tgz" --purge',
       path => ['/bin/', '/sbin', '/usr/bin', '/usr/sbin', '/usr/local/bin'],
       unless => ['test -f']
