@@ -20,7 +20,7 @@ class ambari::server::truststore (
       exec {"setup_cert_${cert_name}":
         command => "${cmd} && touch /etc/ambari-server/conf/.truststore_setup",
         path    => '/bin:/sbin:/usr/bin:/usr/sbin',
-        creates => '/etc/ambari-server/conf/.truststore_setup',
+        creates => "/etc/ambari-server/conf/.setup_cert_${cert_name}",
         require => Exec['ambari_server_truststore_setup'],
         notify => Service['ambari-server'],
       }
