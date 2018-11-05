@@ -18,7 +18,7 @@ class ambari::server::truststore (
       $cert_name=regsubst($cert_file, '\.crt$', '')
       $import_cmd="ambari-server setup-security --security-option=import-certificate --truststore-path=${trust_store_path}  --truststore-type=pkcs12 --truststore-password=${trust_store_path} --import-cert-path=${cert} --import-cert-alias=${cert_name} --truststore-reconfigure"
       exec {"setup_cert_${cert_name}":
-        command => "${cmd} && touch /etc/ambari-server/conf/.truststore_setup",
+        command => "${import_cmd} && touch /etc/ambari-server/conf/.setup_cert_${cert_name}",
         path    => '/bin:/sbin:/usr/bin:/usr/sbin',
         creates => "/etc/ambari-server/conf/.setup_cert_${cert_name}",
         require => Exec['ambari_server_truststore_setup'],
