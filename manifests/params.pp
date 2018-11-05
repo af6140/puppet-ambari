@@ -10,4 +10,12 @@ class ambari::params {
   $agent_service_ensure = 'running'
   $agent_service_enable = true
   $agent_use_repo = true
+
+  $default_mpk_fetch_urls = {
+    'hdf' => {
+      '3.1.2.0' => 'http://public-repo-1.hortonworks.com/HDF/centos7/3.x/updates/3.1.2.0/tars/hdf_ambari_mp/hdf-ambari-mpack-3.1.2.0-7.tar.gz',
+      '3.2.0.0' => 'http://public-repo-1.hortonworks.com/HDF/centos7/3.x/updates/3.2.0.0/tars/hdf_ambari_mp/hdf-ambari-mpack-3.2.0.0-520.tar.gz'
+    }
+  }
+
 }
