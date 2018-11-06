@@ -17,10 +17,8 @@ class ambari::server::security_setup (
   exec { 'ambari_server_security_setup':
     command => "${cmd} && touch /etc/ambari-server/conf/.security_setup",
     path    => '/bin:/sbin:/usr/bin:/usr/sbin',
-    creates => '/etc/ambari-server/conf/.security_setup'
+    creates => '/etc/ambari-server/conf/.security_setup',
+    notify => Service['ambari-server'],
   }
-
-  #notify ambari server
-  Exec['ambari_server_security_setup'] ~> Service['ambari-server']
 
 }

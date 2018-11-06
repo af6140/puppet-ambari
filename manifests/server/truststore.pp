@@ -1,11 +1,11 @@
 # setup ssl cert
 class ambari::server::truststore (
-  String[1] $trust_store_path='/var/lib/ambari-server/keys/keystore.p12',
+  String[1] $trust_store_path='/var/lib/ambari-server/keys/keystore.jks',
   String[1] $trust_store_pass='Changeme',
   Array[String[1]] $cert_paths=[],
 ) {
   if size($cert_paths) >0 {
-    $cmd = "ambari-server setup-security --security-option=setup-truststore --truststore-path=${trust_store_path} --truststore-type=pkcs12 --truststore-password=${trust_store_pass}  --truststore-reconfigure"
+    $cmd = "ambari-server setup-security --security-option=setup-truststore --truststore-path=${trust_store_path} --truststore-type=jks --truststore-password=${trust_store_pass}  --truststore-reconfigure"
     exec { 'ambari_server_truststore_setup':
       command => "${cmd} && touch /etc/ambari-server/conf/.truststore_setup",
       path    => '/bin:/sbin:/usr/bin:/usr/sbin',
