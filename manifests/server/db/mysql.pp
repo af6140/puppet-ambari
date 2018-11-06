@@ -19,10 +19,8 @@ class ambari::server::db::mysql (
     mode   => '0755'
   }
 
-  wget::fetch { 'mysql_jdbc_driver':
+  file { '/usr/share/java/mysql-connector-java-bin.jar':
     source      => $jdbc_driver_url,
-    destination => '/usr/share/java/mysql-connector-java-bin.jar',
-    execuser    => 'root',
     mode        => '0644'
   }
 
