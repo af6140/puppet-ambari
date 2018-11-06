@@ -1,30 +1,18 @@
 class ambari::server (
   $ambari_user            = 'root',
-  $use_repo               = false,
-  $initial_install        = true,
-  $default_install        = true,
-  $db_backend             = undef,
-  $db_host                = undef,
-  $db_port                = undef,
-  $db_username            = undef,
-  $db_password            = undef,
-  $db_mysql_driver_url    = $::ambari::params::jdbc_driver_url,
-  $db_manage_installation = false,
-  $settings               = {}
+  Boolean $use_repo               = false,
+  Boolean $initial_install        = true,
+  Boolean $default_install        = true,
+  Enum['mysq', 'postgresql'] $db_backend             = 'mysql',
+  Optional[String[1]] $db_host                = undef,
+  Optional[String[1]] $db_port                = undef,
+  Optional[String[1]] $db_username            = undef,
+  Optional[String[1]] $db_password            = undef,
+  Optional[String[1]] $db_mysql_driver_url    = $::ambari::params::jdbc_driver_url,
+  Boolean $db_manage_installation = false,
+  Hash $settings               = {}
 ) inherits ::ambari::params {
 
-  # input validation
-  validate_bool($use_repo)
-  validate_bool($default_install)
-
-  # validate
-  if !$default_install {
-    validate_re($db_backend, ['mysql', 'postgresql'])
-    validate_str($db_host)
-    validate_str($db_port)
-    validate_str($db_username)
-    validate_str($db_password)
-  }
 
   case $db_backend {
     'mysql': {
