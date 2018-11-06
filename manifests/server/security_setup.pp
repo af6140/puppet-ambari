@@ -5,6 +5,10 @@ class ambari::server::security_setup (
   Optional[String[1]] $ssl_key_pass,
 ) {
 
+  exec {'wait_for_ambari_server':
+    require => Service['ambari-server'],
+    command => '/usr/bin/wget --spider --tries 10 --retry-connrefused --no-check-certificate http://localhost:8080',
+  }
   if $ssl_key_pass {
     $cmd = "ambari-server setup-security --security-option=setup-https --api-ssl=true --api-ssl-port=8443 --import-cert-path=${ssl_cert_path} --import-key-path=${ssl_key_path} --pem-password=${ssl_key_path}"
   }else {
