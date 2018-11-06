@@ -43,9 +43,9 @@ class ambari::server::ldap (
   }
 
   if $config.dig('group_attr') {
-    $user_attr = $config.dig('group_attr')
+    $group_attr = $config.dig('group_attr')
   }else {
-    $user_attr  = 'group'
+    $group_attr  = 'group'
   }
 
   if $config.dig('member_attr') {
