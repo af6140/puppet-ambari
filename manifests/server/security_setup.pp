@@ -5,7 +5,7 @@ class ambari::server::security_setup (
   Optional[String[1]] $ssl_key_pass=undef,
 ) {
 
-  exec {'wait_for_ambari_server':
+  exec {'secuirty_setup_wait_for_ambari_server':
     require => Service['ambari-server'],
     command => '/usr/bin/wget --spider --tries 10 --retry-connrefused --no-check-certificate http://localhost:8080',
   }

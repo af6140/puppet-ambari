@@ -86,7 +86,7 @@ class ambari::server::ldap (
     –truststore-path="${ambari::server::truststore::trust_store_path}" \
     –truststore-password="${ambari::server::truststore::trust_store_pass}"
    | EOT
-   exec {'wait_for_ambari_server':
+   exec {'ldap_wait_for_ambari_server':
       require => Service['ambari-server'],
       command => '/usr/bin/wget --spider --tries 10 --retry-connrefused --no-check-certificate http://localhost:8080',
    } ->
