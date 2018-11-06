@@ -2,7 +2,7 @@
 class ambari::server::security_setup (
   String[1] $ssl_cert_path,
   String[1] $ssl_key_path,
-  Optional[String[1]] $ssl_key_pass,
+  Optional[String[1]] $ssl_key_pass=undef,
 ) {
 
   exec {'wait_for_ambari_server':
