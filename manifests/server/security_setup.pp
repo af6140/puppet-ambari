@@ -5,7 +5,11 @@ class ambari::server::security_setup (
   Optional[String[1]] $ssl_key_pass,
 ) {
 
-  $cmd = "ambari-server setup-security --security-option=setup-https --api-ssl=true --api-ssl-port=8443 --import-cert-path=${ssl_cert_path} --import-key-path=${ssl_key_path} --pem-password=${ssl_key_path}"
+  if $ssl_key_pass {
+    $cmd = "ambari-server setup-security --security-option=setup-https --api-ssl=true --api-ssl-port=8443 --import-cert-path=${ssl_cert_path} --import-key-path=${ssl_key_path} --pem-password=${ssl_key_path}"
+  }else {
+    $cmd = "ambari-server setup-security --security-option=setup-https --api-ssl=true --api-ssl-port=8443 --import-cert-path=${ssl_cert_path} --import-key-path=${ssl_key_path}"
+  }
   exec { 'ambari_server_security_setup':
     command => "${cmd} && touch /etc/ambari-server/conf/.security_setup",
     path    => '/bin:/sbin:/usr/bin:/usr/sbin',
