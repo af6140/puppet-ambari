@@ -1,17 +1,70 @@
 class ambari::server::ldap (
-  String[1] $uri,
-  String $secondary_uri = '',
-  Boolean $ssl = true,
-  String $user_class = 'person',
-  String $user_attr = 'sAMAccountName',
-  String $group_class = 'group',
-  String $group_attr = 'cn',
-  String $member_attr = 'member',
-  String $dn = 'distunguishedName',
-  String $base_dn,
-  String $bind_dn,
-  String $bind_passwd,
+  Struct[
+    {
+      uri => String[1],
+      base_dn => String[1],
+      bind_dn => String[1],
+      bind_passwd => String[1],
+      ssl => Boolean,
+      Optional[secondary_uri] => String[1],
+      Optional[user_class] => String[1],
+      Optional[user_attr] => String[1],
+      Optional[group_class] => String[1],
+      Optional[group_attr] => String[1],
+      Optional[member_attr] => String[1],
+      Optional[dn] => String[1]
+    }
+  ] $config,
+
 ) {
+
+  if $config.dig('secondary_uri') {
+    $secondary_uri = $config.dig('secondary_uri')
+  }else {
+    $secondary_uri  = ''
+  }
+
+  if $config.dig('user_class') {
+    $user_class = $config.dig('user_class')
+  }else {
+    $user_class  = 'person'
+  }
+
+  if $config.dig('user_attr') {
+    $user_attr = $config.dig('user_attr')
+  }else {
+    $user_attr  = 'sAMAccountName'
+  }
+
+  if $config.dig('group_class') {
+    $user_class = $config.dig('group_class')
+  }else {
+    $user_class  = 'group'
+  }
+
+  if $config.dig('group_attr') {
+    $user_attr = $config.dig('group_attr')
+  }else {
+    $user_attr  = 'group'
+  }
+
+  if $config.dig('member_attr') {
+    $member_attr = $config.dig('member_attr')
+  }else {
+    $member_attr  = 'member'
+  }
+
+
+  if $config.dig('dn') {
+    $dn = $config.dig('dn')
+  }else {
+    $dn  = 'distunguishedName'
+  }
+
+  $base_dn = $config.dig('base_dn')
+  $bind_dn = $config.dig('bind_dn')
+  $bind_passwd = $config.dig('bind_passwd')
+
   $cmd = @(EOT)
     ambari-server setup-ldap \
     –ldap-url="${uri}" \
