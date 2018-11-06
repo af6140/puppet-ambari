@@ -3,7 +3,7 @@ class ambari::server (
   Boolean $use_repo               = false,
   Boolean $initial_install        = true,
   Boolean $default_install        = true,
-  Enum['mysq', 'postgresql'] $db_backend             = 'mysql',
+  Enum['mysql', 'postgresql'] $db_backend             = 'mysql',
   Optional[String[1]] $db_host                = undef,
   Optional[String[1]] $db_port                = undef,
   Optional[String[1]] $db_username            = undef,
