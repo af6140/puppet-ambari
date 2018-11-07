@@ -13,7 +13,7 @@ class ambari::mpk(
     $gz_file_name = $url_specs[-1]
     $file_name = regsubst($gz_file_name, '\.tar\.gz$', '')
 
-    notice { "Checking_"${file_name}":
+    notice { "Checking_${file_name}":
     }
 
     file { "/var/lib/ambari-server/${gz_file_name}":
