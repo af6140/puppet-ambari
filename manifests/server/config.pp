@@ -11,7 +11,6 @@ class ambari::server::config (
     mode   => '0644',
   }
 
-  Class['ambari::server::package'] -> File['/etc/ambari-server/conf/ambari.properties']
   $defaults = {
     path              => '/etc/ambari-server/conf/ambari.properties',
     key_val_separator => '='
