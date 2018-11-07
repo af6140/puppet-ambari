@@ -9,9 +9,9 @@ class ambari::server::config (
     owner  => $owner,
     group  => $owner,
     mode   => '0644',
-    after => Class['ambari::server::package']
   }
 
+  Class['ambari::server::package'] -> File['/etc/ambari-server/conf/ambari.properties']
   $defaults = {
     path              => '/etc/ambari-server/conf/ambari.properties',
     key_val_separator => '='
