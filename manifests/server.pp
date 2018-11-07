@@ -32,6 +32,10 @@ class ambari::server (
   class { '::ambari::server::package':
     use_repo => $use_repo
   } ->
+  class {'::ambari::server::config':
+    db_backend => $db_backend,
+    settings => $settings,
+  }
   class { '::ambari::server::service': } ->
   anchor { '::ambari::server::stop': }
 
