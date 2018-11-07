@@ -16,6 +16,7 @@ class ambari::mpk(
     file { "/root/${mpk_name}_${version}.tar.gz":
       ensure => 'present',
       source => $mpk_url,
+      unless => ["test -f /var/lib/ambari-server/resources/${file_name}"]
     } ~>
     exec {"install_mpk_${mpk_name}":
       command => "ambari-server install-mpack --mpack=/root/${mpk_name}_${version}.tar.gz --purge",
