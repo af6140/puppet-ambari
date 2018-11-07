@@ -13,18 +13,14 @@ class ambari::mpk(
     $gz_file_name = $url_specs[-1]
     $file_name = regsubst($gz_file_name, '\.tar\.gz$', '')
 
-    archive { "mpk_${mpk_name}_${version}":
+    file { "/root/${mpk_name}_${version}.tar.gz":
       ensure => 'present',
       source => $mpk_url,
-      extract => false,
-      path=> "/root/mpk_${mpk_name}_${version}.tgz",
-      creates => "/var/lib/ambari-server/resources/${file_name}",
     } ~>
     exec {"install_mpk_${mpk_name}":
-      command => "/etc/init.d/ambari-sever install-mpack -mpack=/root/mpk_${mpk_name}_${version}.tgz --purge",
+      command => "/etc/init.d/ambari-sever install-mpack -mpack=/root/${mpk_name}_${version}.tar.gz --purge",
       path => ['/bin/', '/sbin', '/usr/bin', '/usr/sbin', '/usr/local/bin'],
-      unless => ["test -f /var/lib/ambari-server/resources/${file_name}"],
-      refreshonly => true
+      unless => ["test -f /var/lib/ambari-server/resources/${file_name}"]
     }
   }
 }
