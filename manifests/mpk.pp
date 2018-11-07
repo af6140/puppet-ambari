@@ -21,7 +21,7 @@ class ambari::mpk(
     exec {"install_mpk_${mpk_name}":
       command => "ambari-server install-mpack --mpack=/var/lib/ambari-server/${gz_file_name}",
       path => ['/bin/', '/sbin', '/usr/bin', '/usr/sbin', '/usr/local/bin'],
-      unless => ["test -f /var/lib/ambari-server/resources/${file_name}"]
+      unless => ["test -f /var/lib/ambari-server/resources/mpacks/${file_name}"]
     }
   }
 }
