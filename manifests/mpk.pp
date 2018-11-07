@@ -13,8 +13,9 @@ class ambari::mpk(
     $gz_file_name = $url_specs[-1]
     $file_name = regsubst($gz_file_name, '\.tar\.gz$', '')
 
-    archive{ "mpk_${mpk_name}_${version}":
+    archive { "mpk_${mpk_name}_${version}":
       ensure => 'present',
+      source => $mpk_url,
       extract => false,
       path=> "/root/mpk_${mpk_name}_${version}.tgz",
       creates => "/var/lib/ambari-server/resources/${file_name}",

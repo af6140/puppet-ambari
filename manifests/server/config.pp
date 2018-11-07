@@ -8,7 +8,8 @@ class ambari::server::config (
     ensure => file,
     owner  => $owner,
     group  => $owner,
-    mode   => '0644'
+    mode   => '0644',
+    before => Class['ambari::server::package']
   }
 
   $defaults = {
