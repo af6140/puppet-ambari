@@ -18,7 +18,7 @@ class ambari::mpk(
       source => $mpk_url,
     } ~>
     exec {"install_mpk_${mpk_name}":
-      command => "/etc/init.d/ambari-server install-mpack -mpack=/root/${mpk_name}_${version}.tar.gz --purge",
+      command => "ambari-server install-mpack -mpack=/root/${mpk_name}_${version}.tar.gz --purge",
       path => ['/bin/', '/sbin', '/usr/bin', '/usr/sbin', '/usr/local/bin'],
       unless => ["test -f /var/lib/ambari-server/resources/${file_name}"]
     }
