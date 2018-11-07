@@ -9,7 +9,7 @@ class ambari::server::config (
     owner  => $owner,
     group  => $owner,
     mode   => '0644',
-    before => Class['ambari::server::package']
+    after => Class['ambari::server::package']
   }
 
   $defaults = {
