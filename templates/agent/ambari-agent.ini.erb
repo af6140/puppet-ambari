@@ -32,6 +32,12 @@ cache_dir=/var/lib/ambari-agent/cache
 tolerate_download_failures=true
 run_as_user=root
 parallel_execution=0
+<% if not @host_name.nil? %>
+hostname_script=/var/lib/ambari-agent/hostname.sh
+<% end %>
+<% if not @public_host_name.nil? %>
+public_hostname_script=/var/lib/ambari-agent/public_hostname.sh
+<% end %>
 
 [security]
 keysdir=/var/lib/ambari-agent/keys

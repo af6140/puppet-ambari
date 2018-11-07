@@ -7,7 +7,10 @@ class ambari::agent(
   $service_name              = $::ambari::params::agent_service_name,
   $service_ensure            = $::ambari::params::agent_service_ensure,
   $service_enable            = $::ambari::params::agent_service_enable,
-  $use_repo                  = $::ambari::params::agent_use_repo, ) inherits ::ambari::params {
+  $use_repo                  = $::ambari::params::agent_use_repo,
+  Optional[String[1]] $agent_host_name=undef,
+  Optional[String[1]] $agent_public_host_name=undef,
+    ) inherits ::ambari::params {
 
   contain ::ambari::agent::install
   contain ::ambari::agent::config
